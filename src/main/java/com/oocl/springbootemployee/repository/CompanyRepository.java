@@ -12,7 +12,7 @@ import com.oocl.springbootemployee.model.Gender;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CompanyRepository {
+public class CompanyRepository implements CompanyJPARepository {
     private final List<Company> companies = new ArrayList<>();
 
     CompanyRepository() {
@@ -29,10 +29,12 @@ public class CompanyRepository {
         this.companies.add(new Company(2, "boot", employeesInBoot));
     }
 
+    @Override
     public List<Company> findAll() {
         return this.companies;
     }
 
+    @Override
     public Company findById(Integer id) {
         return this.companies.stream()
             .filter(company -> company.getId().equals(id))
@@ -40,6 +42,7 @@ public class CompanyRepository {
             .orElse(null);
     }
 
+    @Override
     public List<Employee> getEmployeesByCompanyId(Integer id) {
         return this.companies.stream()
             .filter(company -> company.getId().equals(id))
@@ -48,6 +51,7 @@ public class CompanyRepository {
             .orElse(Collections.emptyList());
     }
 
+    @Override
     public List<Company> getCompaniesByPagination(Integer pageIndex, Integer pageSize) {
         return this.companies.stream()
             .skip((long) (pageIndex - 1) * pageSize)
@@ -55,6 +59,7 @@ public class CompanyRepository {
             .collect(Collectors.toList());
     }
 
+    @Override
     public Company updateCompany(Integer companyId, Company company) {
         return this.companies.stream()
             .filter(storedCompany -> storedCompany.getId().equals(companyId))
@@ -63,16 +68,7 @@ public class CompanyRepository {
             .orElse(null);
     }
 
-    private Company updateCompanyAttributes(Company company, Company newCompany) {
-        if (newCompany.getName() != null) {
-            company.setName(newCompany.getName());
-        }
-        if (newCompany.getEmployees() != null) {
-            company.setEmployees(newCompany.getEmployees());
-        }
-        return company;
-    }
-
+    @Override
     public Company addCompany(Company company) {
         final Company newCompany = new Company(
             this.companies.size() + 1,
