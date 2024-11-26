@@ -15,6 +15,12 @@ public interface CompanyJPARepository {
     List<Company> getCompaniesByPagination(Integer pageIndex, Integer pageSize);
 
     Company updateCompany(Integer companyId, Company company);
+    default void deleteAll() {
+
+    }
+    default void flush(){
+
+    }
 
     default Company updateCompanyAttributes(Company company, Company newCompany) {
         if (newCompany.getName() != null) {
@@ -25,6 +31,10 @@ public interface CompanyJPARepository {
         }
         return company;
     }
+    default Company save(Company company){
+
+    }
+
 
     Company addCompany(Company company);
 }

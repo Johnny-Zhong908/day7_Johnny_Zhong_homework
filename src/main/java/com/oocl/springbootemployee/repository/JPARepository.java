@@ -11,6 +11,10 @@ public interface JPARepository {
     default void initEmployeeData() {
 
     }
+    default void deleteAll() {
+    }
+    default void flush() {
+    }
 
     Employee findById(Integer id);
 

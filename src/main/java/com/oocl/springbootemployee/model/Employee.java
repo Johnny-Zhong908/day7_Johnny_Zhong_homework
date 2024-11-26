@@ -27,6 +27,9 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(String johnSmith, int i, Gender gender, double v) {
+    }
+
     public Integer getId() {
         return id;
     }

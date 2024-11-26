@@ -26,7 +26,13 @@ public class Company {
         this.name = name;
     }
 
-    public Company() {}
+    public Company(String name, List<Employee> employees) {
+        this.name = name;
+        this.employees = employees;
+    }
+
+    public Company() {
+    }
 
     public Company(String name) {
         this.name = name;
@@ -51,4 +57,6 @@ public class Company {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
+
 }
+
