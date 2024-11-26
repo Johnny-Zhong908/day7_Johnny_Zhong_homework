@@ -1,11 +1,18 @@
 package com.oocl.springbootemployee.model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "company")
 public class Company {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer id;
     private String name;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Employee> employees = new ArrayList<>();
 
     public Company(Integer id, String name, List<Employee> employees) {
