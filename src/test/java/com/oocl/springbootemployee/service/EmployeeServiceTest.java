@@ -24,7 +24,7 @@ class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         when(mockedEmployeeRepository.findAll()).thenReturn(List.of(new Employee(1, "Lucy", 18, Gender.FEMALE, 8000.0)));
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        EmployeeService employeeService = new EmployeeService();
 
         //when
         List<Employee> allEmployees = employeeService.findAll();
@@ -40,7 +40,7 @@ class EmployeeServiceTest {
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         Employee lucy = new Employee(1, "Lucy", 18, Gender.FEMALE, 8000.0);
         when(mockedEmployeeRepository.create(any())).thenReturn(lucy);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        EmployeeService employeeService = new EmployeeService();
 
         //when
         Employee createdEmployee = employeeService.create(lucy);
@@ -54,7 +54,7 @@ class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         Employee kitty = new Employee(1, "Kitty", 6, Gender.FEMALE, 8000.0);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        EmployeeService employeeService = new EmployeeService();
         //when
         //then
         assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
@@ -66,7 +66,7 @@ class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         Employee kitty = new Employee(1, "Kitty", 66, Gender.FEMALE, 8000.0);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        EmployeeService employeeService = new EmployeeService();
         //when
         //then
         assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
@@ -77,7 +77,7 @@ class EmployeeServiceTest {
     void should_created_employee_active_when_create_employee() {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        EmployeeService employeeService = new EmployeeService();
         Employee lucy = new Employee(1, "Lucy", 18, Gender.FEMALE, 8000.0);
         //when
         employeeService.create(lucy);
@@ -90,7 +90,7 @@ class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         Employee bob = new Employee(1, "Bob", 31, Gender.FEMALE, 8000.0);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        EmployeeService employeeService = new EmployeeService();
         //when
         //then
         assertThrows(EmployeeAgeSalaryNotMatchedException.class, () -> employeeService.create(bob));
@@ -104,7 +104,7 @@ class EmployeeServiceTest {
         Employee inactiveEmployee = new Employee(1, "Bob", 31, Gender.FEMALE, 8000.0);
         inactiveEmployee.setActive(false);
         when(mockedEmployeeRepository.findById(1)).thenReturn(inactiveEmployee);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        EmployeeService employeeService = new EmployeeService();
         //when
         //then
         assertThrows(EmployeeInactiveException.class, () -> employeeService.update(1, inactiveEmployee));
