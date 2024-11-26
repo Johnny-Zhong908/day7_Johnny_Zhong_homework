@@ -1,6 +1,15 @@
 package com.oocl.springbootemployee.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
+@Entity
 public class Employee {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer id;
     private String name;
     private Integer age;
@@ -63,4 +72,5 @@ public class Employee {
     public void setActive(Boolean active) {
         isActive = active;
     }
+    public void setId(Integer id){this.id = id;}
 }
